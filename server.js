@@ -13,7 +13,7 @@ app.get('/',  function (req,res){
 
 
   analytics_payload = {'tags': {'environment': 'test'}, 'measurements': [{'name': 'anayltics', 'value': 5}]} // random value to analytics
-  request.post({uri: 'https://api.appoptics.com/v1/measurements',json:true, auth:{'user':'f50a06a6857134ab54595f4165a30f31c4b9c2291b822bca7629a7df3289f44d', 'pass':''}, 'body':analytics_payload}, function (e,r,body){ analytics_response = r })
+  request.post({uri: 'https://api.appoptics.com/v1/measurements',json:true, auth:{'user':'f50a06a6857134ab54595f4165a30f31c4b9c2291b822bca7629a7df3289f44d', 'pass':''}, 'body':analytics_payload})
 
   res.send('Hello World');
 
