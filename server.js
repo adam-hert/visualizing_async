@@ -5,17 +5,20 @@ const request = require('request');
 
 app.get('/',  function (req,res){
 
-  service_call_1 = request('http://localhost:8082/api-v1/hotels', { json: true });
+  service_call_1 = request('http://localhost:8082/api-v1/hotels', { json: true }, function (e,r,body){
 
-  service_call_2 = request('http://localhost:8082/api-v1/hotels', { json: true });
+    service_call_2 = request('http://localhost:8082/api-v1/hotels', { json: true }, function(e,r,body){
 
-  service_call_3 = request('http://localhost:8082/api-v1/hotels', { json: true });
+      service_call_3 = request('http://localhost:8082/api-v1/hotels', { json: true }, function (e,r,body){
 
+	analytics_payload = {'tags': {'environment': 'test'}, 'measurements': [{'name': 'anayltics', 'value': 5}]} // random value to analytics
+        request.post({uri: 'https://api.appoptics.com/v1/measurements',json:true, auth:{'user':'f50a06a6857134ab54595f4165a30f31c4b9c2291b822bca7629a7df3289f44d', 'pass':''}, 'body':analytics_payload}, function (e,r,body){
 
-  analytics_payload = {'tags': {'environment': 'test'}, 'measurements': [{'name': 'anayltics', 'value': 5}]} // random value to analytics
-  request.post({uri: 'https://api.appoptics.com/v1/measurements',json:true, auth:{'user':'f50a06a6857134ab54595f4165a30f31c4b9c2291b822bca7629a7df3289f44d', 'pass':''}, 'body':analytics_payload})
-
-  res.send('Hello World');
+          res.send('Hello World');
+        })
+      });
+    });
+  });
 
 })
 
